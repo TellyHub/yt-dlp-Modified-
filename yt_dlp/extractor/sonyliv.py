@@ -38,7 +38,7 @@ class SonyLIVIE(InfoExtractor):
             'release_year': 2016,
         },
         'params': {
-            'skip_download': True,
+            'skip_download': False,
         },
     }, {
         'url': 'https://www.sonyliv.com/movies/tahalka-1000050121?watch=true',
