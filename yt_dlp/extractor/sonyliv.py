@@ -56,7 +56,7 @@ class SonyLIVIE(InfoExtractor):
         'url': 'https://www.sonyliv.com/music-videos/yeh-un-dinon-ki-baat-hai-1000018779',
         'only_matching': True,
     }]
-    _GEO_COUNTRIES = ['IN']
+    _GEO_COUNTRIES = ['US']
     _HEADERS = {}
     _LOGIN_HINT = 'Use "--username <mobile_number>" to login using OTP or "--username token --password <auth_token>" to login using auth token.'
     _NETRC_MACHINE = 'sonyliv'
@@ -88,7 +88,7 @@ class SonyLIVIE(InfoExtractor):
             None, note='Sending OTP', headers=self._HEADERS, data=json.dumps({
                 'mobileNumber': username,
                 'channelPartnerID': 'MSMIND',
-                'country': 'IN',
+                'country': 'US',
                 'timestamp': datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%MZ'),
                 'otpSize': 6,
                 'loginType': 'REGISTERORSIGNIN',
@@ -104,7 +104,7 @@ class SonyLIVIE(InfoExtractor):
                 'mobileNumber': username,
                 'country': 'IN',
                 'otp': self._get_tfa_info('OTP'),
-                'dmaId': 'IN',
+                'dmaId': 'US',
                 'ageConfirmation': True,
                 'timestamp': datetime.datetime.now().strftime('%Y-%m-%dT%H:%M:%S.%MZ'),
                 'isMobileMandatory': True,
@@ -145,9 +145,9 @@ class SonyLIVIE(InfoExtractor):
         }
         formats = self._extract_mpd_formats(
             dash_url, video_id, mpd_id='dash', headers=headers, fatal=False)
-        formats.extend(self._extract_m3u8_formats(
+        formats.extend(self._extract_m3u8_formats_and_subtitles(
             dash_url.replace('.mpd', '.m3u8').replace('/DASH/', '/HLS/'),
-            video_id, 'mp4', m3u8_id='hls', headers=headers, fatal=False))
+            video_id, 'mp4', 'm4a', m3u8_id='hls', headers=headers, fatal=False))
         for f in formats:
             f.setdefault('http_headers', {}).update(headers)
         self._sort_formats(formats)
