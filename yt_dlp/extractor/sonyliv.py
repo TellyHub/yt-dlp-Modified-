@@ -102,7 +102,7 @@ class SonyLIVIE(InfoExtractor):
             None, note='Verifying OTP', headers=self._HEADERS, data=json.dumps({
                 'channelPartnerID': 'MSMIND',
                 'mobileNumber': username,
-                'country': 'IN',
+                'country': 'US',
                 'otp': self._get_tfa_info('OTP'),
                 'dmaId': 'US',
                 'ageConfirmation': True,
